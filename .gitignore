@@ -1,0 +1,47 @@
+# Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+
+# FastAPI / Uvicorn logs
+*.log
+*.pid
+
+# Python packaging
+*.egg-info/
+dist/
+build/
+*.whl
+
+# Database files
+*.sqlite3
+*.db
+
+# pytest cache
+.cache/
+
+# Configuration files
+*.ini
+*.log
+*.cfg
+*.toml
+
+# Secrets and environment variables
+.env
+*.env
+config.json
+
+# IDE files
+.idea/
+.vscode/
+
+# Operating System files
+.DS_Store
+Thumbs.db
