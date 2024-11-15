@@ -26,6 +26,13 @@ class ProductRepository:
         products = self.db.query(Product).filter(Product.user_id == user_id).all()
         return products
     
+    def get_images_by_product_id(self,product_id : int) :
+        images = self.db.query(Image).filter(Image.product_id == product_id)
+        images_urls = []
+        for prod in images :
+            images_urls.append(prod.image_url)
+        return images_urls
+    
     def update_product(self, product_id: int, product_schema: ProductCreate):
         product = self.db.query(Product).filter(Product.id == product_id).first()
         if not product:
@@ -64,3 +71,4 @@ class ProductRepository:
             (Product.product_tag.ilike(f"%{keyword}%"))
         ).all()
         return products
+    

@@ -6,11 +6,9 @@ from typing import List
 AZURE_CONNECTION_STRING = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
 CONTAINER_NAME = "product-images"
 
-# blob_service_client = BlobServiceClient.from_connection_string(AZURE_CONNECTION_STRING)
-blob_service_client = "dummy"
+blob_service_client = BlobServiceClient.from_connection_string(AZURE_CONNECTION_STRING)
 
-# container_client = blob_service_client.get_container_client(CONTAINER_NAME)
-container_client = "dummy"
+container_client = blob_service_client.get_container_client(CONTAINER_NAME)
 
 
 async def upload_images_to_blob(photos: List[UploadFile]) -> List[str]:

@@ -17,12 +17,14 @@ class ProductController:
         added_product = self.product_service.create_product(product, user_id)
         if photos:
             print("printing image")
-            # await self.product_service.add_images_to_product_service(added_product.id,photos)
+            response = await self.product_service.add_images_to_product_service(added_product.id,photos)
+            print(response)
         return added_product
 
 
     def get_product_detail(self, id: int):
         return self.product_service.get_product_detail(id)
+
 
     async def get_all_products_by_user_id(self, user_id: int,keyword : str):
         return await self.product_service.get_all_products_by_user_id(user_id,keyword)

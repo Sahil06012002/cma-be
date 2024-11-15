@@ -25,7 +25,8 @@ class ProductService:
         Fetches the details of a product by its ID.
         """
         product = self.product_repository.get_product_by_id(id)
-        return product
+        images = self.product_repository.get_images_by_product_id(id)
+        return product , images
     
     async def get_all_products_by_user_id(self, user_id: int,keyword : str):
         if not keyword : 
