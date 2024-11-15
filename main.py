@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from middleware import AuthMiddleware
 from routes import product_route, user_route
 
-app = FastAPI()
+app = FastAPI(root_path="/api")
 app.add_middleware(AuthMiddleware)
 
 origins = [
