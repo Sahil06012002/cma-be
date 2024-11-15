@@ -22,25 +22,6 @@ async def add_product(
     db: Session = Depends(get_db),
 ) :
     print("check=====>")
-
-    if photos is not None and len(photos) > 10:
-        raise HTTPException(status_code=400, detail="You can upload up to 10 photos only.")
-    
-    if photos:
-        for file in photos:
-            file_details = {
-                "filename": file.filename,
-                "content_type": file.content_type,
-            }
-            
-            content = await file.read()
-            file_details["size"] = len(content)  
-            
-            print(f"Uploaded file: {file_details}")
-            
-            await file.seek(0)
-    else:
-        print("No photos uploaded.")
     user_id = request.state.user_id
 
     product_controller = ProductController(db)
@@ -52,6 +33,7 @@ async def add_product(
         dealer=dealer,
     )
     added_product = await product_controller.create_product(product_schema,user_id,photos)
+    print(added_product.description)
     return {"added product" : added_product}
 
 @router.get("",tags=["product"])
