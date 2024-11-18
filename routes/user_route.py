@@ -47,3 +47,7 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = 
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
+@router.get("/me")
+async def user_check() :
+    print("check successful")
+    return {"status" : True}
