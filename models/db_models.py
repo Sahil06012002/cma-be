@@ -40,5 +40,15 @@ class Image(Base):
 
     product = relationship("Product", back_populates="images")
 
+class Feedback(Base):
+    __tablename__ = 'feedback'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(50), nullable=False)
+    phone = Column(String(15), nullable=False)
+    email = Column(String(50), nullable=False)
+    service = Column(String(50), nullable=False)
+    feedback = Column(Text, nullable=False)
+
 
 

@@ -16,7 +16,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         print("req path-----")
         print(request.url.path)
-        if request.url.path in ["/user/login", "/user/signup","/docs","/openapi.json"]:
+        if request.url.path in ["/user/login","/user/external-entry", "/user/signup","/docs","/openapi.json"]:
             return await call_next(request)
 
         token = request.headers.get("Authorization")

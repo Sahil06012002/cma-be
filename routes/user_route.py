@@ -3,7 +3,8 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from datetime import timedelta
 from sqlalchemy.orm import Session
 from database import SessionLocal
-from models.schema import Token, UserAPI
+from models.db_models import Feedback
+from models.schema import SnapwaveFeedback, Token, UserAPI
 from repository.user_repository import UserRepository
 from services.auth import create_access_token, hash_password, verify_password, verify_token
 
@@ -31,6 +32,26 @@ async def signup(user: UserAPI, db: Session = Depends(get_db)):
     hashed_password = hash_password(user.password)
     new_user = user_repository.create_user(user.username, hashed_password, user.email)
     return {"message": f"User {new_user.username} created successfully"}
+
+
+
+@router.post("/external-entry",tags=["extrenal"])
+async def add_entry(entry : SnapwaveFeedback,db: Session = Depends(get_db)) :
+    new_feedback = Feedback(name = entry.name,phone = entry.phone, email = entry.email, service = entry.service, feedback = entry.feedback)
+    try : 
+        print("===========")
+        print(new_feedback.email)
+        db.add(new_feedback)
+        db.commit()
+        db.refresh(new_feedback)
+        return {"status" : True, "data" : new_feedback}
+    except Exception as e:
+        print("Error occurred:", str(e))
+        return {"status" : False, "data" : new_feedback}
+
+
+
+
 
 @router.post("/login", response_model=Token,tags=["user"])
 async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):

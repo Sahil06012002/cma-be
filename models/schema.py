@@ -6,6 +6,13 @@ class UserAPI(BaseModel):
     password: str
     email : str
 
+class SnapwaveFeedback(BaseModel):
+    name : Optional[str]
+    phone : Optional[str]
+    email : Optional[str]
+    service : Optional[str]
+    feedback: Optional[str]
+
 class Token(BaseModel):
     access_token: str
     token_type: str
