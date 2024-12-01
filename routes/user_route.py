@@ -37,7 +37,7 @@ async def signup(user: UserAPI, db: Session = Depends(get_db)):
 
 @router.post("/external-entry",tags=["extrenal"])
 async def add_entry(entry : SnapwaveFeedback,db: Session = Depends(get_db)) :
-    new_feedback = Feedback(name = entry.name,phone = entry.phone, email = entry.email, service = entry.service, feedback = entry.feedback)
+    new_feedback = Feedback(name = entry.name,phone = entry.phone, email = entry.email, service = entry.service, feedback = entry.feedback,rating = entry.rating)
     try : 
         print("===========")
         print(new_feedback.email)

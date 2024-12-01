@@ -49,6 +49,8 @@ class Feedback(Base):
     email = Column(String(50), nullable=False)
     service = Column(String(50), nullable=False)
     feedback = Column(Text, nullable=False)
+    rating = Column(Integer, nullable=False)
+
 
 
 

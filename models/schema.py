@@ -11,6 +11,7 @@ class SnapwaveFeedback(BaseModel):
     phone : Optional[str]
     email : Optional[str]
     service : Optional[str]
+    rating: Optional[int]
     feedback: Optional[str]
 
 class Token(BaseModel):
