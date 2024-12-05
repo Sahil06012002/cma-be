@@ -25,3 +25,11 @@ class ProductCreate(BaseModel) :
     company : Optional[str] = None
     dealer : Optional[str] = None
 
+class IncomingFeedback(BaseModel) :
+    id : int
+    name : Optional[str]
+    phone : Optional[str]
+    email : Optional[str]
+    service : Optional[str]
+    rating: Optional[int]
+    feedback: Optional[str]

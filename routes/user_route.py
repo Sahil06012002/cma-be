@@ -1,10 +1,11 @@
+from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from datetime import timedelta
 from sqlalchemy.orm import Session
 from database import SessionLocal
 from models.db_models import Feedback
-from models.schema import SnapwaveFeedback, Token, UserAPI
+from models.schema import IncomingFeedback, SnapwaveFeedback, Token, UserAPI
 from repository.user_repository import UserRepository
 from services.auth import create_access_token, hash_password, verify_password, verify_token
 
@@ -48,6 +49,21 @@ async def add_entry(entry : SnapwaveFeedback,db: Session = Depends(get_db)) :
     except Exception as e:
         print("Error occurred:", str(e))
         return {"status" : False, "data" : new_feedback}
+
+@router.get("/feedbacks")
+async def get_feedbacks(skip: int = 0, db: Session = Depends(get_db)):
+    try:
+        feedback_items : list[IncomingFeedback] = db.query(Feedback).order_by(Feedback.id).offset(skip).limit(15).all()
+
+        total_feedbacks = db.query(Feedback).count()
+        return {
+            "status": True,
+            "data": feedback_items,
+            "total_feedbacks": total_feedbacks,
+        }
+    except Exception as e:
+        print("Error occurred:", str(e))
+        raise HTTPException(status_code=500, detail="Internal server error")
 
 
 
